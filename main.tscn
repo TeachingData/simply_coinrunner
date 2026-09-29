@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://fth60w1mqmsw"]
+
+[ext_resource type="Texture2D" uid="uid://yy3krqyg5rgg" path="res://assets/grass.png" id="1_0xm2m"]
+[ext_resource type="Script" uid="uid://cxj5vk8c70gh5" path="res://main.gd" id="1_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://cc6wsrm1mgnil" path="res://scenes/player.tscn" id="2_h2yge"]
+[ext_resource type="PackedScene" uid="uid://mjrsspynepl4" path="res://scenes/coin.tscn" id="2_lquwl"]
+[ext_resource type="PackedScene" uid="uid://rr8hgbwfquq6" path="res://scenes/hud.tscn" id="3_lquwl"]
+
+[node name="Main" type="Node2D" unique_id=1616000884]
+script = ExtResource("1_1bvp3")
+Coin = ExtResource("2_lquwl")
+playtime = 30
+
+[node name="HUD" parent="." unique_id=844384374 instance=ExtResource("3_lquwl")]
+
+[node name="Background" type="TextureRect" parent="." unique_id=1829537739]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 490.0
+offset_bottom = 736.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_0xm2m")
+stretch_mode = 1
+
+[node name="Player" parent="." unique_id=632234592 instance=ExtResource("2_h2yge")]
+
+[node name="CoinContainer" type="Node2D" parent="." unique_id=967613783]
+
+[node name="PlayerStart" type="Marker2D" parent="." unique_id=11585166]
+position = Vector2(240, 350)
+
+[node name="GameTimer" type="Timer" parent="." unique_id=1189220301]
+
+[connection signal="area_entered" from="Player" to="Player" method="_on_area_entered"]
+[connection signal="hurt" from="Player" to="." method="_on_Player_hurt"]
+[connection signal="pickup" from="Player" to="." method="_on_player_pickup"]
+[connection signal="timeout" from="GameTimer" to="." method="_on_GameTimer_timeout"]
